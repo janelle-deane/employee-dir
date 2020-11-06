@@ -1,23 +1,75 @@
 import './Search.css';
+import React, { Component } from 'react';
+import API from "../../utils/API";
+import EmployeeCard from '../EmployeeCard/EmployeeCard';
 
-// import React, { Component } from 'react'
+export default class Search extends Component {
+    state={
+        searchName: "", 
+        names:[],
+        results:[]
+    }
 
-// export default class Search extends Component {
-//     render() {
-//         return (
-//             <div>
-//                 <h2>Search Component</h2>
-//             </div>
-//         )
-//     }
-// }
+    // Pull random people from API
+    componentDidMount(){
+        API.getRandomPeople().then(res=>{
+            this.setState({names:res.data.results})
+        })
+    }
 
-import React from 'react'
+    // Pull name searching for
+    handleInputChange = event=>{
+        const {name,value} = event.target;
+        this.setState({
+            searchName:event.target.value
+        })
+    }
 
-export default function Search() {
-    return (
-        <div>
-            <h2>Search Component</h2>
-        </div>
-    )
+    // Sort Employee
+    sortEmployee(){
+        
+    }
+
+    // When I hit submit, the results are filtered for that name
+    handleFormSubmit = event=>{
+        event.preventDefault();
+        this.sortEmployee(this.state.searchName).then(res=>{
+            this.setState({results:res.data.results})
+        })
+    }
+
+
+    render() {
+        return (
+            <div>
+              <div className ="Search">
+                <form onSubmit={this.handleFormSubmit}>
+                    <datalist id="names">
+                        {this.state.results.map(name=><option>{name}</option>)}
+                    </datalist>
+                    <input  name="searchName" list="names" value={this.state.searchName} onChange={this.handleInputChange} />
+                    <button>Search!</button>
+                </form>
+                {this.state.results.map(pic=><img src={pic}/>)}
+            </div>   
+                <EmployeeCard
+                firstName ={this.state.results.name.first}
+                lastName ={this.state.results.name.last}
+                gender ={this.state.results.gender}
+                email ={this.state.results.email}
+                phone={this.state.results.phone}
+                />
+            </div>
+        )
+    }
 }
+
+// import React from 'react'
+
+// export default function Search() {
+//     return (
+//         <div>
+//             <h2>Search Component</h2>
+//         </div>
+//     )
+// }

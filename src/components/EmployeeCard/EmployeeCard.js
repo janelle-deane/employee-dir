@@ -1,24 +1,31 @@
 import './EmployeeCard.css';
-// import React, { Component } from 'react'
-
-// export default class EmployeeCard extends Component {
-//     state={
-//         img:""
-//     }
-//     render() {
-//         return (
-//             <div>
-//                 <h2>EmployeeCard</h2>
-//             </div>
-//         )
-//     }
-// }
 import React from 'react'
 
-export default function EmployeeCard() {
+export default function EmployeeCard(props) {
     return (
-        <div>
-            <h2>Employee Card</h2>
+        <div className="EmployeeCard">
+        <div className="img-container">
+          <img alt={props.name} src={props.picture} />
         </div>
+        <div className="content">
+          <ul>
+            <li>
+              <strong>Name:</strong> {props.firstName} {props.firstName}
+            </li>
+            <li>
+              <strong>Gender:</strong> {props.gender}
+            </li>
+            <li>
+              <strong>Email:</strong> {props.email}
+            </li>
+            <li>
+              <strong>Phone:</strong> {props.phone}
+            </li>
+          </ul>
+        </div>
+        <span onClick={() => props.removeFriend(props.id)} className="remove">
+          𝘅
+        </span>
+      </div>
     )
 }

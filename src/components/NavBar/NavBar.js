@@ -6,7 +6,7 @@ export default function NavBar() {
   return (
     <div className="NavBar">
       <ul className="nav nav-bar">
-        <h2>Employee Directory</h2>
+        <h3>Employee Directory</h3>
         <li className="nav-item">
           <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
             Home
