@@ -5,9 +5,9 @@ import SearchPage from './components/Pages/SearchPage';
 import Footer from './components/Footer/Footer';
 import NavBar from './components/NavBar/NavBar';
 
+
 function App() {
   return (
-    <div className="App">
      <Router>
        <NavBar/>
        <Switch>
@@ -16,8 +16,6 @@ function App() {
        </Switch>
        <Footer/>
      </Router>
-
-    </div>
   );
 }
 
