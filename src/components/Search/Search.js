@@ -7,6 +7,7 @@ export default class Search extends Component {
     state={
         searchName: "", 
         names:[],
+        sortedFriends: [], 
         results:[]
     }
 
@@ -14,6 +15,7 @@ export default class Search extends Component {
     componentDidMount(){
         API.getRandomPeople().then(res=>{
             this.setState({names:res.data.results})
+            this.setState({results:res.data.results})
         })
     }
 
@@ -26,8 +28,9 @@ export default class Search extends Component {
     }
 
     // Sort Employee
-    sortEmployee(){
-        
+    sortEmployee = name =>{
+        const sortedFriends=this.state.results.filter(employee => employee.name === name); 
+        this.setState({sortedFriends: sortedFriends})
     }
 
     // When I hit submit, the results are filtered for that name
@@ -50,26 +53,19 @@ export default class Search extends Component {
                     <input  name="searchName" list="names" value={this.state.searchName} onChange={this.handleInputChange} />
                     <button>Search!</button>
                 </form>
-                {this.state.results.map(pic=><img src={pic}/>)}
+                
             </div>   
-                <EmployeeCard
-                firstName ={this.state.results.name.first}
-                lastName ={this.state.results.name.last}
-                gender ={this.state.results.gender}
-                email ={this.state.results.email}
-                phone={this.state.results.phone}
+               {this.state.results.map(employee =>( <EmployeeCard
+                firstName ={employee.name.first}
+                lastName ={employee.name.last}
+                gender ={employee.gender}
+                email ={employee.email}
+                phone={employee.phone}
+                picture={employee.picture.thumbnail}
+                key={employee.id.value}
                 />
+                ))}
             </div>
         )
     }
 }
-
-// import React from 'react'
-
-// export default function Search() {
-//     return (
-//         <div>
-//             <h2>Search Component</h2>
-//         </div>
-//     )
-// }
