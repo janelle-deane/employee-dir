@@ -14,7 +14,7 @@ export default class Search extends Component {
     // Pull random people from API
     componentDidMount(){
         API.getRandomPeople().then(res=>{
-            // this.setState({names:res.data.results})
+            this.setState({sortedFriends:res.data.results})
             this.setState({results:res.data.results})
         })
     }
@@ -23,22 +23,20 @@ export default class Search extends Component {
     handleInputChange = event=>{
         const {name,value} = event.target;
         this.setState({
-            searchName:event.target.value
+            [name]:value
         })
     }
 
     // Sort Employee
-    sortEmployee = name =>{
-        const sortedFriends=this.state.results.filter(employee => employee.name === name); 
+    sortEmployee = searchName =>{
+        const sortedFriends=this.state.results.filter(employee => employee.name.first.toLowerCase() === searchName); 
         this.setState({sortedFriends: sortedFriends})
     }
 
     // When I hit submit, the results are filtered for that name
     handleFormSubmit = event=>{
         event.preventDefault();
-        this.sortEmployee(this.state.searchName).then(res=>{
-            this.setState({results:res.data.results})
-        })
+        this.sortEmployee(this.state.searchName)
     }
 
 
@@ -46,16 +44,16 @@ export default class Search extends Component {
         return (
             <div>
               <div className ="Search">
-                <form onSubmit={this.handleFormSubmit}>
+                <form onChange={this.handleFormSubmit}>
                     <datalist id="names">
-                        {this.state.results.map(name=><option>{name}</option>)}
+                        {this.state.results.map(emp=><option>{emp.name.first}</option>)}
                     </datalist>
                     <input  name="searchName" list="names" value={this.state.searchName} onChange={this.handleInputChange} />
                     <button>Search!</button>
                 </form>
                 
             </div>   
-               {this.state.results.map(employee =>( <EmployeeCard
+               {this.state.sortedFriends.map(employee =>( <EmployeeCard
                 firstName ={employee.name.first}
                 lastName ={employee.name.last}
                 gender ={employee.gender}
