@@ -8,8 +8,15 @@ import NavBar from './components/NavBar/NavBar';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+     <Router>
+       <NavBar/>
+       <Switch>
+         <Route exact path="/"component={Home}/>
+         <Route exact path="/search" component={Search}/>
+       </Switch>
+       <Footer/>
+     </Router>
+
     </div>
   );
 }
