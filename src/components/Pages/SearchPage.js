@@ -1,4 +1,3 @@
-import EmployeeCard from '../EmployeeCard/EmployeeCard';
 import Search from '../Search/Search';
 import React from 'react'
 

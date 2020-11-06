@@ -14,7 +14,7 @@ export default class Search extends Component {
     // Pull random people from API
     componentDidMount(){
         API.getRandomPeople().then(res=>{
-            this.setState({names:res.data.results})
+            // this.setState({names:res.data.results})
             this.setState({results:res.data.results})
         })
     }
