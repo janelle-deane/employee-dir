@@ -1,5 +1,6 @@
 import Search from '../Search/Search';
-import React from 'react'
+import React from 'react';
+
 
 export default function SearchPage() {
     return (
