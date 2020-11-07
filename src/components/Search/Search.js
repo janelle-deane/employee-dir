@@ -54,7 +54,7 @@ export default class Search extends Component {
                     </form>
 
                 </div>
-                <table>
+                <table className="employeeTable">
                 <TableHeader/>
                 {this.state.sortedFriends.map(employee => (<EmployeeCard
                     firstName={employee.name.first}
