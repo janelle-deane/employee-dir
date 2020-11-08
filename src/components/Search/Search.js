@@ -5,12 +5,19 @@ import EmployeeCard from '../EmployeeCard/EmployeeCard';
 import TableHeader from '../TableHeader/TableHeader';
 
 export default class Search extends Component {
-    state = {
-        searchName: "",
-        names: [],
-        sortedFriends: [],
-        results: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            searchName: "",
+            names: [],
+            sortedFriends: [],
+            results: [], 
+        }
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleFormSubmit=this.handleFormSubmit.bind(this)
+       
     }
+   
 
     // Pull random people from API
     componentDidMount() {
@@ -22,22 +29,30 @@ export default class Search extends Component {
 
     // Pull name searching for
     handleInputChange = event => {
-        const { name, value } = event.target;
+        let { name, value } = event.target;
         this.setState({
             [name]: value
         })
     }
 
     // Sort Employee
-    sortEmployee = searchName => {
-        const sortedFriends = this.state.results.filter(employee => employee.name.first.toLowerCase() === searchName);
-        this.setState({ sortedFriends: sortedFriends })
-    }
+    
 
     // When I hit submit, the results are filtered for that name
     handleFormSubmit = event => {
         event.preventDefault();
-        this.sortEmployee(this.state.searchName)
+        let sortEmployee = searchName => {
+            let sortedFriends = this.state.results.filter(employee => {
+              return employee.name.first=== searchName
+            });
+            console.log(sortedFriends)
+            this.setState({sortedFriends})
+        }
+        console.log(this.state.searchName)
+        sortEmployee(this.state.searchName)
+       
+
+
     }
 
 
@@ -45,7 +60,7 @@ export default class Search extends Component {
         return (
             <div>
                 <div className="Search">
-                    <form onChange={this.handleFormSubmit}>
+                    <form onSubmit={this.handleFormSubmit}>
                         <datalist id="names">
                             {this.state.results.map(emp => <option>{emp.name.first}</option>)}
                         </datalist>
@@ -54,7 +69,7 @@ export default class Search extends Component {
                     </form>
 
                 </div>
-                <table className="employeeTable">
+                <table className="employeeTable">  
                 <TableHeader/>
                 {this.state.sortedFriends.map(employee => (<EmployeeCard
                     firstName={employee.name.first}

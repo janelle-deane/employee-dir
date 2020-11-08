@@ -1,9 +1,9 @@
 import './TableHeader.css';
 import React from 'react'
 
-export default function TableHeader(props) {
+export default function TableHeader() {
     return (
-      <tr className="TableHeader">
+      <thead className="TableHeader">
         <th>
         <strong>Picture</strong> 
         </th>
@@ -19,7 +19,7 @@ export default function TableHeader(props) {
         <th>
           <strong>Phone</strong> 
         </th>
-      </tr>
+      </thead>
     
     )
 }

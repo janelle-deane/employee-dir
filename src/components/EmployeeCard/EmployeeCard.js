@@ -3,7 +3,6 @@ import React from 'react'
 
 export default function EmployeeCard(props) {
   return (
-    
       <tr className="EmployeeCard">
         <td>
           <img alt={props.name} src={props.picture} />
